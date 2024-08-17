@@ -1,0 +1,15 @@
+./bin/tum_rgbd \
+    ./ORB_SLAM3/Vocabulary/ORBvoc.txt \
+    ./cfg/ORB_SLAM3/RGB-D/TUM/tum_freiburg1_desk.yaml \
+    ./cfg/gaussian_mapper/RGB-D/TUM/tum_freiburg1_desk.yaml \
+    /media/wrm/ubuntu_relative/dataset/rgbd_dataset_freiburg1_desk \
+    ./cfg/ORB_SLAM3/RGB-D/TUM/associations/tum_freiburg1_desk.txt \
+    ./output 
+    
+./bin/tum_rgbd \
+    ./ORB_SLAM3/Vocabulary/ORBvoc.txt \
+    ./cfg/ORB_SLAM3/RGB-D/RealCamera/realsense_d455_rgbd.yaml \
+    ./cfg/gaussian_mapper/RGB-D/RealCamera/realsense_realsense_rgbd.yaml \
+    /media/wrm/ubuntu_relative/dataset/rgbd_dataset_freiburg1_desk \
+    ./cfg/ORB_SLAM3/RGB-D/TUM/associations/tum_freiburg1_desk.txt \
+    ./output \

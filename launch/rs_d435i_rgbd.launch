@@ -1,0 +1,41 @@
+<launch>
+    <param name="use_sim_time" value="false" />
+
+    <!-- Main node -->
+    <node name="orb_slam3" pkg="photo_slam_ros" type="ros_rgbd" output="screen">
+        <!-- change the topics according to the dataset 
+        <remap from="/camera/rgb/image_raw"                 to="/camera/color/image_raw"/>
+        <remap from="/camera/depth_registered/image_raw"    to="/camera/aligned_depth_to_color/image_raw"/>-->
+
+        <!-- Parameters for original ORB_SLAM3 -->
+        <param name="voc_file"      type="string" value="$(find photo_slam_ros)/ORB_SLAM3/Vocabulary/ORBvoc.txt"/>
+
+
+        <!-- dataset -->
+        <!-- <param name="settings_file" type="string" value="$(find photo_slam_ros)/config/RGB-D/RealSense_D435i.yaml"/> -->
+
+        <!-- own photo -->
+        <param name="settings_file" type="string" value="$(find photo_slam_ros)/cfg/ORB_SLAM3/RGB-D/RealCamera/realsense_d455_rgbd.yaml"/> 
+
+
+        <param name="gaussian_cfg_path"    type="string" value="$(find photo_slam_ros)/cfg/gaussian_mapper/RGB-D/RealCamera/realsense_rgbd.yaml"/>
+        <param name="output_dir" type="string" value="$(find photo_slam_ros)/output"/>
+
+
+        <!-- Parameters for ROS -->
+        <param name="world_frame_id"    type="string"   value="world" />
+        <param name="cam_frame_id"      type="string"   value="camera" />
+        <param name="enable_pangolin"   type="bool"     value="true" />
+        <param name="use_viewer"   type="bool"     value="true" />
+    </node>
+    
+    <!-- Visualization -->
+   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find photo_slam_ros)/config/orb_slam3_rgbd.rviz" output="screen" />
+    
+    <!-- Trajectory path -->
+    <node pkg="hector_trajectory_server" type="hector_trajectory_server" name="trajectory_server_orb_slam3" output="screen" ns="ORB_SLAM3" >
+        <param name="/target_frame_name" value="/world" />
+        <param name="/trajectory_update_rate" value="20.0" />
+        <param name="/trajectory_publish_rate" value="20.0" />
+    </node>
+</launch>
